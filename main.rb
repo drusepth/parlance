@@ -5,9 +5,11 @@ START_QUOTE         = '"'
 END_QUOTE           = '"'
 DIALOGUE_REGEX      = /#{START_QUOTE}[^#{START_QUOTE}]+#{END_QUOTE}/
 SPEAKER_NAME_REGEX  = /[A-Z][\w\.-]*\s+[A-Z][\w-]*+/
+SPEAKING_VERBS      = ['said', 'chortled']
+SPEAKING_VERB_REGEX = /[#{SPEAKING_VERBS.join('|')}]/
 SPEAKER_ANNOTATIONS = [
-  /said (#{SPEAKER_NAME_REGEX})/,
-  /(#{SPEAKER_NAME_REGEX}) said/
+  /#{SPEAKING_VERB_REGEX} (#{SPEAKER_NAME_REGEX})/,
+  /(#{SPEAKER_NAME_REGEX}) #{SPEAKING_VERB_REGEX}/
 ]
 
 unless book_path = ARGV.shift
