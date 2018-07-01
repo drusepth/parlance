@@ -23,7 +23,9 @@ end
 
 def speaker_in_text text
   SPEAKER_ANNOTATIONS.each do |regex|
+    puts "Matching #{regex} against #{text}"
     match = text.scan regex
+    puts "Match: #{match.inspect}"
     return match.flatten[0] if match.any?
   end
 
@@ -34,7 +36,6 @@ binding.pry
 
 File.open(book_path, "r") do |f|
   f.each_line do |line|
-    #puts line
 
     # Finding any dialogue
     dialogue = dialogue_in_text(line)
@@ -43,6 +44,8 @@ File.open(book_path, "r") do |f|
     # Find any potential speaker
     speaker = speaker_in_text(line)
 
+    puts line
     puts "<#{speaker}> #{dialogue}"
+    puts '-'*20
   end
 end
